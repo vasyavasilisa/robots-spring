@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="scripts/script.js"></script>
+
+<head>
+<meta charset="UTF-8">
+<title>ТЕСТОВОЕ ЗАДАНИЕ</title>
+<style type="text/css">
+body{
+background: rgb(30,30,30);
+}
+select {
+	text-align: center;
+	background: rgb(158, 158, 158);
+}
+input {
+	height: 16px;
+	text-align: center;
+	background: rgb(158, 158, 158);
+	margin-left: 20px;
+}
+
+.explanation_label{
+	font-family: 'Niconne', cursive;
+	font-size: 11px;
+	color: rgb(170, 255, 170);
+	margin-left: 20px;
+	float: left;
+	text-align: center;
+}
+.functional_div{
+	box-sizing: content-box;
+	display: flex;
+	float: left;
+	margin-top: 10px;
+	margin-left: 10%;
+	width: 80%;
+	height: 30px;
+}
+#log {
+	margin-top: 5px;
+	margin-left: 10%;
+	padding-left: 10px;
+	margin-bottom: 50px;
+	width: 80%;
+	height: 380px;
+	border: 1px solid rgb(100, 255, 100);
+	overflow-y: auto;
+	/*background: rgb(198, 198, 198);*/
+	background: linear-gradient(to top, rgb(39, 39, 39),
+		rgb(102, 102, 102));
+		font-family: 'Niconne', cursive;
+	font-size: 10px;
+	color: rgb(170, 255, 170);
+}
+
+#robot_type{
+	width: 50px;
+	float: left;
+}
+#name{
+	float: left;
+	margin-left: 20px;
+}
+#send_robot{
+	width: 200px;
+	height:22px;
+	float:left;
+	margin-left: 60px;	
+	background: rgb(198, 198, 198);
+}
+#explanation{
+	float: left;
+	width: 100px;
+}
+
+#robot_name{
+	width: 120px;
+	float: left;
+}
+#send_task{
+	width: 160px;
+	height:22px;
+	float:left;
+	margin-left: 20px;	
+	background: rgb(198, 198, 198);
+}
+
+
+#task_time{
+	margin-left: 20px;
+	width: 30px;
+	float: left;
+}
+#set_time{
+	width: 700px;
+	height:22px;
+	float:left;
+	margin-left: 20px;	
+	background: rgb(198, 198, 198);
+}
+#set_threshold{
+	width: 700px;
+	height:22px;
+	float:left;
+	margin-left: 20px;	
+	background: rgb(198, 198, 198);
+}
+#threshold{
+	margin-left: 20px;
+	width: 30px;
+	float: left;
+}
+#set_interval{
+	width: 600px;
+	height:22px;
+	float:left;
+	margin-left: 20px;	
+	background: rgb(198, 198, 198);
+}
+#interval{
+	margin-left: 20px;
+	width: 30px;
+	float: left;
+}
+</style>
+</head>
+<body>
+<div id = "log"></div>
+<div class="functional_div">
+			<input id="robot_type"></input>
+			<div class = "explanation_label">тип робота (A,B,C)</div>
+			<input id="name" type="text" size=44>
+			<div class = "explanation_label">имя нового робота</div>
+			<button type="button" id="send_robot">ДОБАВИТЬ РОБОТА</button>	
+</div>
+<div class="functional_div">
+			<input id="robot_name"></input>
+			<div class="explanation_label">задание для робота (при пустом поле будет отправлено любому)</div>
+			<input id="task_subject" type="text" size=44>
+			<div class="explanation_label">суть задания</div>
+			<button type="button" id="send_task">ОТПРАВИТЬ ЗАДАНИЕ</button>	
+</div>
+<div class="functional_div">
+			<div class="explanation_label">время:</div>
+			<input id="task_time"></input>
+			<div class="explanation_label">сек.</div>
+			<button type="button" id="set_time">ЗАДАТЬ МАКСИМАЛЬНОЕ ВРЕМЯ ВЫПОЛНЕНИЯ ЗАДАНИЯ (от 1 до 3600 сек)</button>	
+</div>
+<div class="functional_div">
+			<div class="explanation_label">порог:</div>
+			<input id="threshold"></input>
+			<div class="explanation_label">заданий</div>
+			<button type="button" id="set_threshold">ЗАДАТЬ ПОРОГ КОЛИЧЕСТВА ЗАДАНИЙ В ОЧЕРЕДИ (2..100 шт)</button>	
+</div>
+<div class="functional_div">
+			<div class="explanation_label">максимальный интервал:</div>
+			<input id="interval"></input>
+			<div class="explanation_label">секунд</div>
+			<button type="button" id="set_interval">ЗАДАТЬ ИНТЕРВАЛ ДОБАВЛЕНИЯ ЗАДАНИЙ (от 2 до 3600сек)</button>	
+</div>
+<div class="functional_div">
+			<div class="explanation_label">Убить какого-нибудь робота вы можете отправив ему задание "kill yourself". Такое задание, когда до него дойдёт очередь, выполнится роботом мгновенно. Время выполнения остальных заданий определяется случайно в момент их добавления. Вы можете повлиять лишь на максимальное время, отправив соответствующий запрос. Робот ищет задание сначала в своей очереди, потом, если его очередь пуста, берёт задание из общей. При превышении в общей очереди какого-то порогового числа заданий автоматически добавляется новый робот. Пороговое число вы также можете установить самостоятельно. Вы можете также задать интервал, с которым система генерирует задания в общую очередь. Имейте в виду, что с новым интервалом система будет добавлять задания по истечении старого интервала. То есть если интервал был равен часу и система вошла в стадию ожидания, то с новым интервалом задания начнут добавляться по истечении этого часа. При отправке заданий роботам, сгенерированным системой, учтите, что их имена имеют вид '№10','№11' и т.п. Роботы могут быть трёх типов: A, B, C (буквы латинские). Если вы добавляете робота с некорректным указанием типа, то робот добавлен не будет и в лог будет выведено сообщение о невозможности прочитать параметр.</div>	
+</div>
+</body>
+</html>
