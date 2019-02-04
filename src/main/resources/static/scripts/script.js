@@ -7,7 +7,7 @@
 var maxLogSize = 100;
 var log = [];
 var lastIndex = 0;
-var url = "http://env-2982050.mycloud.by/";
+var url = "http://localhost:8080/";
 
 document.addEventListener("DOMContentLoaded", initialization);
 
