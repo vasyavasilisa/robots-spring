@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS log;
+CREATE TABLE log(ID INT PRIMARY KEY,
+                ROBOTNAME VARCHAR(255),
+                 TIME TIME,
+                MESSAGE VARCHAR(255));
